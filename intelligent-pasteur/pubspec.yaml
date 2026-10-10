@@ -1,0 +1,39 @@
+name: campus_schedule
+description: "CampusSchedule - University Timetable, Offline Storage, and Exact Alarm Push Notifications"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # Local notifications & Timezone management
+  flutter_local_notifications: ^17.2.2
+  timezone: ^0.9.4
+  flutter_timezone: ^3.0.1
+  
+  # Offline SQLite database persistence
+  sqflite: ^2.3.3+1
+  path: ^1.9.0
+  
+  # File picking & PDF text extraction
+  file_picker: ^8.0.5
+  syncfusion_flutter_pdf: ^26.1.41
+  
+  # Date/Time formatting & Utilities
+  intl: ^0.19.0
+  shared_preferences: ^2.2.3
+  
+  # In-App WebView for Portal scraping
+  flutter_inappwebview: ^6.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
