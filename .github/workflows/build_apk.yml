@@ -39,10 +39,13 @@ jobs:
             SRC_DIR="intelligent-pasteur"
           fi
 
-          # 3. Copy our Dart source code and dependencies into the clean template
+          # 3. Copy our Dart source code and dependencies into clean template
           cp -rf "$SRC_DIR/lib" clean_project/
           cp -f "$SRC_DIR/pubspec.yaml" clean_project/
           
+          # Fix CrossAxisAlignment automatically in all files
+          find clean_project/lib -type f -name "*.dart" -exec sed -i 's/CrossCrossConstraints/CrossAxisAlignment/g' {} +
+
           # Copy custom AndroidManifest with exact alarm permissions
           if [ -f "$SRC_DIR/android/app/src/main/AndroidManifest.xml" ]; then
             cp -f "$SRC_DIR/android/app/src/main/AndroidManifest.xml" clean_project/android/app/src/main/AndroidManifest.xml
