@@ -30,13 +30,12 @@ jobs:
 
       - name: Prepare & Build Flutter APK
         run: |
-          # If inside intelligent-pasteur subfolder, navigate into it
           if [ -d "intelligent-pasteur" ]; then
             cd intelligent-pasteur
           fi
           
-          # Ensure complete Android build harness
-          flutter create --platforms=android --org com.example .
+          # Use valid project name campus_schedule
+          flutter create --platforms=android --org com.example --project-name campus_schedule .
           flutter pub get
           flutter build apk --release --no-tree-shake-icons
 
