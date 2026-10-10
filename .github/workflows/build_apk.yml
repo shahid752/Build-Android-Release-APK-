@@ -1,0 +1,47 @@
+name: Build Android Release APK
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.x'
+          channel: 'stable'
+          cache: true
+
+      - name: Prepare & Build Flutter APK
+        run: |
+          # If inside intelligent-pasteur subfolder, navigate into it
+          if [ -d "intelligent-pasteur" ]; then
+            cd intelligent-pasteur
+          fi
+          
+          # Ensure complete Android build harness
+          flutter create --platforms=android --org com.example .
+          flutter pub get
+          flutter build apk --release --no-tree-shake-icons
+
+      - name: Locate and Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CampusSchedule-release-apk
+          path: "**/build/app/outputs/flutter-apk/app-release.apk"
